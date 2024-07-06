@@ -1,6 +1,6 @@
 # SWAPIFY
 A python + Qt application for easily creating swap memory 
-[screenshot](files/resources/image/swap.png)
+![alt text](https://github.com/TaqsBlaze/swapify/blob/main/files/resources/image/swap.png)
 
 # Why Swapify?
 - swapify makes it incredibly easy without typing any command
