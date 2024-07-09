@@ -22,6 +22,10 @@ class UI(QMainWindow):
         
     
     def create_swap(self):
+          if os.path.isfile("~/.safespace/swap"):
+              print("Found old swap file")
+              os.remove("~/.safespace/swap")
+              print("Old swap file removed")
           commands = [
               f"fallocate -l {self.memorySlider.value()}GB ~/.safespace/swap",
               "chmod 600 ~/.safespace/swap",
@@ -36,6 +40,7 @@ class UI(QMainWindow):
                 #and I'm working on it Ok!..ok
                 temp_content = temp.read()
                 self.password = temp_content
+                print("Password:",self.password)
             
             os.remove(f"files{os.sep}constructors{os.sep}.temp")
           except FileNotFoundError:
@@ -54,7 +59,7 @@ class UI(QMainWindow):
             for command in commands:
               self.update_message(message[commands.index(command)]) #displaying message corresponding to current command
 
-              p = Popen(['sudo','-S'] + command, stdin = PIPE,
+              p = Popen(['sudo','-S'] + command.split(), stdin = PIPE,
                         stderr = PIPE, universal_newlines = True)
               su = p.communicate(self.password + '\n')[1]
 
@@ -82,7 +87,7 @@ class UI(QMainWindow):
             for command in commands:
               self.update_message(message[commands.index(command)]) #displaying message corresponding to current command
 
-              p = Popen(['sudo','-S'] + command, stdin = PIPE,
+              p = Popen(['sudo','-S'] + command.split(), stdin = PIPE,
                         stderr = PIPE, universal_newlines = True)
               su = p.communicate(self.password + '\n')[1]
 
