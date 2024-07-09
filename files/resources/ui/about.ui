@@ -23,7 +23,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>About - swapify</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../icons/icons.qrc">
+    <normaloff>:/icons/information.png</normaloff>:/icons/information.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -166,6 +170,12 @@
              </property>
              <item row="1" column="1">
               <widget class="QLabel" name="label_6">
+               <property name="font">
+                <font>
+                 <family>Nirmala UI Semilight</family>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>1.0.0</string>
                </property>
@@ -199,6 +209,12 @@
              </item>
              <item row="0" column="1">
               <widget class="QLabel" name="label_4">
+               <property name="font">
+                <font>
+                 <family>Nirmala UI Semilight</family>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>Swapify</string>
                </property>
@@ -219,6 +235,12 @@
              </item>
              <item row="2" column="1">
               <widget class="QLabel" name="label_8">
+               <property name="font">
+                <font>
+                 <family>Nirmala UI Semilight</family>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>06.06.2024d</string>
                </property>
@@ -237,6 +259,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../icons/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
