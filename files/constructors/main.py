@@ -22,9 +22,24 @@ class UI(QMainWindow):
         
     
   def create_swap(self):
+    try:
+      with open(f"files{os.sep}constructors{os.sep}.temp","r") as temp:
+          #Dont bite me for this.... I know theres a need for a more secure methode
+          #and I'm working on it Ok!..ok
+          temp_content = temp.read()
+          self.password = temp_content
+    except FileNotFoundError:
+      pass
+    
     if os.path.isfile("~/.safespace/swap"):
       print("Found old swap file")
-      os.remove("~/.safespace/swap")
+      p = Popen(['sudo','-S'] + "swapoff ~/.safespace/swap".split(), stdin = PIPE,
+                        stderr = PIPE, universal_newlines = True)
+      su = p.communicate(self.password + '\n')[0]
+      p = Popen(['sudo','-S'] + ["rm -rf ~/.safespace/swap"], stdin = PIPE,
+                        stderr = PIPE, universal_newlines = True)
+      su = p.communicate(self.password + '\n')[0]
+      print("Removing:",su)
       print("Old swap file removed")
             
     commands = [
@@ -34,8 +49,8 @@ class UI(QMainWindow):
               "swapon ~/.safespace/swap"
             ]    
             
-    message = ["[+] Creating swap file of {self.memorySlider.value()}GB","[+] Adding permisions...",
-              "[+] Converting file to swap memory...","[+] Activating swap memory..."
+    message = [f"[+] Creating swap file of {self.memorySlider.value()}GB","[+] Adding permisions...",
+              "[+] Converting file to swap memory...","[+] Swap memory activation success.."
               ]
             
     try:
@@ -59,8 +74,7 @@ class UI(QMainWindow):
 
 
     if os.path.exists("~/.safespace"):
-            
-
+      
       for command in commands:
         self.update_message(message[commands.index(command)]) #displaying message corresponding to current command
 
@@ -73,15 +87,14 @@ class UI(QMainWindow):
 
 
       commands = [
-              "mkdir ~/.safespace",
               f"fallocate -l {self.memorySlider.value()}GB ~/.safespace/swap",
               "chmod 600 ~/.safespace/swap",
               "mkswap ~/.safespace/swap",
               "swapon ~/.safespace/swap"
               ]
-      message = ["[+] Creating safe space..","[+] Creating swap file of {self.memorySlider.value()}GB","[+] Adding permisions...",
-                "[+] Converting file to swap memory...","[+] Activating swap memory..."]
-          
+      message = ["[+] Creating safe space..",f"[+] Creating swap file of {self.memorySlider.value()}GB","[+] Adding permisions...",
+                "[+] Converting file to swap memory...","[+] Swap memory activation success..."]
+      os.makedirs("~/.safespace")
       for command in commands:
         self.update_message(message[commands.index(command)]) #displaying message corresponding to current command
 
@@ -90,17 +103,18 @@ class UI(QMainWindow):
         su = p.communicate(self.password + '\n')[1]
 
         print("SU:",su)
+        sys.exit()
 
 
-    def update_message(self,message):
-      self.updateScreen.append(message)
-      #time.sleep(2)
+  def update_message(self,message):
+    self.updateScreen.append(message)
+    #time.sleep(2)
 
-    def current_memory_value(self):
-      self.value_label.setText(str(self.memorySlider.value()))
+  def current_memory_value(self):
+    self.value_label.setText(str(self.memorySlider.value()))
 
-    def show_about(self):
-      about.ui.show()
+  def show_about(self):
+    about.ui.show()
 
 
 def close():
