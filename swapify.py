@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFrame
 from PyQt5 import uic
 from about import AboutWindow
 from password import PasswordWindow
+import password
 import sys
 import os
 import time
@@ -21,7 +22,7 @@ class UI(QMainWindow):
         self.createButton.clicked.connect(self.create_swap)
         self.value_label.setText(str(self.memorySlider.value()))
 
-
+    
     def create_swap(self):
 
           password_window = PasswordWindow()

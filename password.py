@@ -10,10 +10,11 @@ class PasswordWindow(QMainWindow):
         uic.loadUi(f"files{os.sep}resources{os.sep}ui{os.sep}password.ui", self)  # Replace with your actual path to password.ui
         self.password_input= self.findChild(QLineEdit,"password_input")
         self.password_input.returnPressed.connect(self.submit_password)
-        #self.show()
+        # self.show()
+
     def submit_password(self):
         # This method is called when Enter key is pressed in the password_input field
-        self.destr(destrysubwindow=True)  # Close the dialog with Accepted status
+        self.destroy(destroySubWindows=True)  # Close the dialog with Accepted status
 
     def getPassword(self):
         self.show()
@@ -21,4 +22,4 @@ class PasswordWindow(QMainWindow):
     
 
 app = QApplication(sys.argv)
-ui = PasswordWindow()
+passwordUI = PasswordWindow()
