@@ -30,13 +30,13 @@ class UI(QMainWindow):
           self.password = temp_content
     except FileNotFoundError:
       pass
-    
+
     if os.path.isfile("~/.safespace/swap"):
       print("Found old swap file")
       p = Popen(['sudo','-S'] + "swapoff ~/.safespace/swap".split(), stdin = PIPE,
                         stderr = PIPE, universal_newlines = True)
       su = p.communicate(self.password + '\n')[0]
-      p = Popen(['sudo','-S'] + ["rm -rf ~/.safespace/swap"], stdin = PIPE,
+      p = Popen(['sudo','-S'] + "rm -rf ~/.safespace/swap".split(), stdin = PIPE,
                         stderr = PIPE, universal_newlines = True)
       su = p.communicate(self.password + '\n')[0]
       print("Removing:",su)
