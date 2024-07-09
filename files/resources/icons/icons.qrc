@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>information.png</file>
+    <file>cpu.ico</file>
+    <file>key.png</file>
+    <file>lock-pattern.png</file>
+    <file>padlock.png</file>
+    <file>password.png</file>
+    <file>ram.png</file>
+  </qresource>
+</RCC>
