@@ -22,34 +22,39 @@ class UI(QMainWindow):
         
     
     def create_swap(self):
-          if os.path.isfile("~/.safespace/swap"):
-              print("Found old swap file")
-              os.remove("~/.safespace/swap")
-              print("Old swap file removed")
-          commands = [
+        if os.path.isfile("~/.safespace/swap"):
+            print("Found old swap file")
+            os.remove("~/.safespace/swap")
+            print("Old swap file removed")
+            
+            commands = [
               f"fallocate -l {self.memorySlider.value()}GB ~/.safespace/swap",
               "chmod 600 ~/.safespace/swap",
               "mkswap ~/.safespace/swap",
               "swapon ~/.safespace/swap"
-          ]
-          message = ["[+] Creating swap file of {self.memorySlider.value()}GB","[+] Adding permisions...",
-                     "[+] Converting file to swap memory...","[+] Activating swap memory..."]
-          try:
-            with open(f"files{os.sep}constructors{os.sep}.temp","r") as temp:
-                #Dont bite me for this.... I know theres a need for a more secure methode
-                #and I'm working on it Ok!..ok
-                temp_content = temp.read()
-                self.password = temp_content
-                print("Password:",self.password)
+            ]
             
-            os.remove(f"files{os.sep}constructors{os.sep}.temp")
-          except FileNotFoundError:
-               #We want to do nothing and continue
+            message = ["[+] Creating swap file of {self.memorySlider.value()}GB","[+] Adding permisions...",
+                     "[+] Converting file to swap memory...","[+] Activating swap memory..."]
+            
+            try:
+                with open(f"files{os.sep}constructors{os.sep}.temp","r") as temp:
+                    #Dont bite me for this.... I know theres a need for a more secure methode
+                    #and I'm working on it Ok!..ok
+                    temp_content = temp.read()
+                    self.password = temp_content
+                    print("Password:",self.password)
+                    
+                os.remove(f"files{os.sep}constructors{os.sep}.temp")
+            
+            except FileNotFoundError:
+                #We want to do nothing and continue
                 pass
-          except Exception as error:
-              os.remove(f"files{os.sep}constructors{os.sep}.temp")
-              print("Error:", error)
-              sys.exit(error)
+            
+            except Exception as error:
+                os.remove(f"files{os.sep}constructors{os.sep}.temp")
+                print("Error:", error)
+                sys.exit(error)
          
           
 
